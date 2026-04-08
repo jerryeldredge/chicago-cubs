@@ -1,8 +1,20 @@
-/* Background: Cubs-style vertical pinstripes */
+/*
+ * styles.css — Chicago Cubs Fan Website
+ * Shared stylesheet for all pages: index, history, roster, schedule.
+ * Color palette: Cubs Royal Blue (#0E3386) and Cubs Red (#CC3433).
+ * Typography: Arial throughout for a clean, legible look.
+ */
+
+/* ============================================================
+   BASE / BODY
+   Background uses subtle vertical pinstripes evoking the
+   classic Cubs home uniform pattern.
+   ============================================================ */
 body {
     font-family: 'Arial', sans-serif;
-    color: #0E3386;
+    color: #0E3386;                  /* Default text in Cubs blue */
     background-color: #ffffff;
+    /* Repeating vertical stripe: a 2px blue line every 30px */
     background-image: repeating-linear-gradient(
         to right,
         transparent,
@@ -14,25 +26,34 @@ body {
     padding: 0;
 }
 
-/* Main content wrapper div */
+/* ============================================================
+   CONTAINER
+   White semi-transparent card that holds all page content,
+   centered with a max width for readability on wide screens.
+   ============================================================ */
 div.container {
-    background-color: rgba(255, 255, 255, 0.92);
+    background-color: rgba(255, 255, 255, 0.92); /* Slightly transparent white */
     max-width: 900px;
-    margin: 30px auto;
+    margin: 30px auto;               /* Centered horizontally */
     padding: 30px 40px;
     border-radius: 6px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15); /* Subtle drop shadow */
 }
 
-/* Navigation bar div */
+/* ============================================================
+   NAVIGATION BAR
+   Full-width blue bar at the top of every page with links
+   to Home, History, Roster, and Schedule.
+   ============================================================ */
 div.navbar {
-    background-color: #0E3386;
+    background-color: #0E3386;      /* Cubs Royal Blue */
     padding: 12px 20px;
     text-align: center;
 }
 
+/* Individual nav link styling */
 div.navbar a {
-    color: #ffffff;
+    color: #ffffff;                  /* White text on blue background */
     text-decoration: none;
     margin: 0 12px;
     font-family: 'Arial', sans-serif;
@@ -41,18 +62,24 @@ div.navbar a {
     letter-spacing: 0.5px;
 }
 
+/* Nav link hover: turn red to match Cubs accent color */
 div.navbar a:hover {
     color: #CC3433;
 }
 
-/* Page header div */
+/* ============================================================
+   PAGE HEADER
+   Centered title area with a red underline border, used at
+   the top of each page's content area.
+   ============================================================ */
 div.header {
     text-align: center;
     padding: 20px 0 10px 0;
-    border-bottom: 3px solid #CC3433;
+    border-bottom: 3px solid #CC3433; /* Red accent line beneath title */
     margin-bottom: 24px;
 }
 
+/* H1 inside the header div */
 div.header h1 {
     font-family: 'Arial', sans-serif;
     color: #0E3386;
@@ -61,10 +88,15 @@ div.header h1 {
     letter-spacing: 1px;
 }
 
-/* Headings */
+/* ============================================================
+   HEADINGS
+   H2 styled in red with a blue underline — used for section
+   titles (e.g., roster sections, history categories).
+   H3 in blue — used for sub-sections (e.g., Starting Rotation).
+   ============================================================ */
 h2 {
     font-family: 'Arial', sans-serif;
-    color: #CC3433;
+    color: #CC3433;                  /* Cubs Red for major section headings */
     border-bottom: 1px solid #0E3386;
     padding-bottom: 4px;
     margin-top: 32px;
@@ -72,10 +104,14 @@ h2 {
 
 h3 {
     font-family: 'Arial', sans-serif;
-    color: #0E3386;
+    color: #0E3386;                  /* Cubs Blue for sub-section headings */
 }
 
-/* Paragraphs */
+/* ============================================================
+   PARAGRAPHS
+   Body copy in near-black for readability against the white
+   container background.
+   ============================================================ */
 p {
     font-family: 'Arial', sans-serif;
     color: #222222;
@@ -83,7 +119,20 @@ p {
     font-size: 15px;
 }
 
-/* Lists */
+/* Small note displayed beneath page header (e.g., "Stats from 2025 season") */
+p.roster-note {
+    font-size: 13px;
+    color: #666666;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+/* ============================================================
+   LISTS
+   Ordered lists (e.g., History categories) in blue bold text.
+   Unordered list items inside them in normal dark text.
+   ============================================================ */
 ol {
     color: #0E3386;
     font-family: 'Arial', sans-serif;
@@ -92,6 +141,7 @@ ol {
     line-height: 2;
 }
 
+/* Nested <li> items within <ul> inside <ol> */
 ul li {
     color: #222222;
     font-weight: normal;
@@ -99,7 +149,10 @@ ul li {
     margin-bottom: 6px;
 }
 
-/* Links */
+/* ============================================================
+   LINKS
+   Default link color is Cubs blue; hover turns red.
+   ============================================================ */
 a {
     color: #0E3386;
     text-decoration: none;
@@ -110,7 +163,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Back to top link */
+/* "Back to top" anchor link: centered, bold, red */
 a#top-link {
     display: block;
     text-align: center;
@@ -119,9 +172,88 @@ a#top-link {
     color: #CC3433;
 }
 
-/* Images */
+/* ============================================================
+   IMAGES
+   All images get a Cubs blue border and a slight border-radius.
+   ============================================================ */
 img {
     border: 3px solid #0E3386;
     border-radius: 4px;
     margin: 12px 0;
+}
+
+/* ============================================================
+   ROSTER TABLES (.roster-table)
+   Used on the Roster page for coaching staff, pitchers, and
+   hitters. Striped rows improve readability of stat tables.
+   ============================================================ */
+table.roster-table {
+    width: 100%;
+    border-collapse: collapse;       /* Merge adjacent cell borders */
+    margin-bottom: 24px;
+    font-size: 14px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Header row: Cubs blue background with white text */
+table.roster-table thead tr {
+    background-color: #0E3386;
+    color: #ffffff;
+}
+
+/* Header cells: padded, left-aligned, with a subtle top/bottom border */
+table.roster-table th {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 2px solid #CC3433; /* Red accent line below header */
+}
+
+/* Data cells: padded, with a light gray bottom border between rows */
+table.roster-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #dde3f2;
+    color: #222222;
+}
+
+/* Zebra stripe: even-numbered rows get a light blue tint */
+table.roster-table tbody tr:nth-child(even) {
+    background-color: #eef2fb;
+}
+
+/* Row hover: highlight in a slightly deeper blue tint */
+table.roster-table tbody tr:hover {
+    background-color: #d8e2f5;
+}
+
+/* ============================================================
+   SCHEDULE TABLE (bare <table border="1"> used in schedule.html)
+   Applies baseline styling to the un-classed schedule table.
+   ============================================================ */
+table:not(.roster-table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* Schedule table header cells */
+table:not(.roster-table) th {
+    background-color: #0E3386;
+    color: #ffffff;
+    padding: 9px 12px;
+    text-align: left;
+    border: 1px solid #0E3386;
+}
+
+/* Schedule table data cells */
+table:not(.roster-table) td {
+    padding: 8px 12px;
+    border: 1px solid #c8d4f0;
+    color: #222222;
+}
+
+/* Zebra stripe for schedule rows */
+table:not(.roster-table) tbody tr:nth-child(even) {
+    background-color: #eef2fb;
 }

@@ -1,0 +1,199 @@
+/* styles.css - Chicago Cubs Fan Website
+   Colors: Cubs Blue #0E3386, Cubs Red #CC3433 */
+
+/* body */
+body {
+    font-family: Arial, sans-serif;
+    color: #0E3386;
+    background-color: #f2f5fc;
+    margin: 0;
+    padding: 0;
+}
+
+/* main content container */
+div.container {
+    background-color: #ffffff;
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 30px 40px;
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* navigation bar */
+div.navbar {
+    background-color: #0E3386;
+    padding: 12px 20px;
+    text-align: center;
+}
+
+div.navbar a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 12px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+div.navbar a:hover {
+    color: #CC3433;
+}
+
+/* page title header */
+div.header {
+    text-align: center;
+    padding: 20px 0 10px 0;
+    border-bottom: 3px solid #CC3433;
+    margin-bottom: 24px;
+}
+
+div.header h1 {
+    color: #0E3386;
+    font-size: 2.4em;
+    margin: 0;
+}
+
+/* headings */
+h2 {
+    color: #CC3433;
+    border-bottom: 1px solid #0E3386;
+    padding-bottom: 4px;
+    margin-top: 32px;
+}
+
+h3 {
+    color: #0E3386;
+}
+
+/* paragraphs */
+p {
+    color: #222222;
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+p.roster-note {
+    font-size: 13px;
+    color: #666666;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+/* lists */
+ol {
+    color: #0E3386;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 2;
+}
+
+ul li {
+    color: #222222;
+    font-weight: normal;
+    line-height: 1.8;
+    margin-bottom: 6px;
+}
+
+/* links */
+a {
+    color: #0E3386;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #CC3433;
+    text-decoration: underline;
+}
+
+/* back to top link */
+a#top-link {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    font-weight: bold;
+    color: #CC3433;
+}
+
+/* images */
+img {
+    border: 3px solid #0E3386;
+    border-radius: 4px;
+    margin: 12px 0;
+}
+
+/* roster tables */
+table.roster-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+
+table.roster-table thead tr {
+    background-color: #0E3386;
+    color: #ffffff;
+}
+
+table.roster-table th {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 2px solid #CC3433;
+}
+
+table.roster-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #dde3f2;
+    color: #222222;
+}
+
+table.roster-table tbody tr:nth-child(even) {
+    background-color: #eef2fb;
+}
+
+table.roster-table tbody tr:hover {
+    background-color: #d8e2f5;
+}
+
+/* schedule table */
+table.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    margin-bottom: 20px;
+}
+
+table.schedule-table th {
+    background-color: #0E3386;
+    color: #ffffff;
+    padding: 9px 12px;
+    text-align: left;
+    border: 1px solid #0E3386;
+}
+
+table.schedule-table td {
+    padding: 8px 12px;
+    border: 1px solid #c8d4f0;
+    color: #222222;
+}
+
+table.schedule-table tbody tr:nth-child(even) {
+    background-color: #eef2fb;
+}
+
+/* back to start link */
+a.back-link {
+    display: inline-block;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #0E3386;
+    text-decoration: none;
+}
+
+a.back-link:hover {
+    color: #CC3433;
+    text-decoration: underline;
+}

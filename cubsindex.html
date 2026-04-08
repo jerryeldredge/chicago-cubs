@@ -4,28 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chicago Cubs</title>
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <!-- navigation bar -->
     <div class="navbar">
         <a href="#">Home</a>
-        <a href="html/history.html">History</a>
-        <a href="html/roster.html">Roster</a>
-        <a href="html/schedule.html">Schedule</a>
+        <a href="history.html">History</a>
+        <a href="roster.html">Roster</a>
+        <a href="schedule.html">Schedule</a>
     </div>
+
     <div class="container">
+
+        <a href="bootstrap/index.html" class="back-link">&#8592; Back to Start</a>
+
         <div class="header">
             <h1>Chicago Cubs</h1>
         </div>
 
+        <!-- Wrigley Field photo -->
         <img src="images/wrigley-box-view.jpeg" alt="Wrigley Field" width="400">
 
         <p>The Chicago Cubs are a professional baseball team based in Chicago, Illinois. They are a member of the National League (NL) Central division in Major League Baseball (MLB). The Cubs were founded in 1876 and have a long and storied history in the sport.</p>
-        <p>The Cubs have won three World Series championships, with their most recent victory in 2016, ending a 108-year championship drought. The team plays its home games at Wrigley Field, which is one of the oldest and most iconic ballparks in the United States. The Cubs have a passionate fan base and are known for their loyal supporters, often referred to as "Cubs fans" or "Cubbies." The team's mascot is a bear named "Clark." The Cubs have had many notable players throughout their history, including Ernie Banks, Ryne Sandberg, and Sammy Sosa. The team continues to be a beloved part of Chicago's sports culture and has a rich tradition in Major League Baseball.</p>
-        <p>On this website, you can learn more about the Chicago Cubs' history, current roster, and upcoming games.</p>
 
+        <p>The Cubs have won three World Series championships, with their most recent victory in 2016, ending a 108-year championship drought. The team plays its home games at Wrigley Field, which is one of the oldest and most iconic ballparks in the United States. The Cubs have a passionate fan base and are known for their loyal supporters, often referred to as "Cubs fans" or "Cubbies." The team's mascot is a bear named "Clark." The Cubs have had many notable players throughout their history, including Ernie Banks, Ryne Sandberg, and Sammy Sosa. The team continues to be a beloved part of Chicago's sports culture and has a rich tradition in Major League Baseball.</p>
+
+        <p>On this website, you can learn more about the Chicago Cubs' history, current roster, and upcoming games. Think you know your Cubs trivia? <a href="bootstrap/quiz.html">Take the Cubs Trivia Quiz!</a></p>
+
+        <!-- Tableau dashboard -->
         <h2>MLB Hitting Stats Dashboard</h2>
         <p>Explore MLB and Minor League hitting statistics in the interactive dashboard below.</p>
+
         <div class='tableauPlaceholder' id='viz1681234567890' style='position: relative'>
             <noscript>
                 <a href='https://public.tableau.com/app/profile/jon.anderson4212/viz/MLBMiLBStatsDashboardv3/Hitters-Main'>
@@ -48,6 +59,7 @@
                 <param name='language' value='en-US' />
             </object>
         </div>
+
         <script type='text/javascript'>
             var divElement = document.getElementById('viz1681234567890');
             var vizElement = divElement.getElementsByTagName('object')[0];
@@ -57,6 +69,8 @@
             scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
             vizElement.parentNode.insertBefore(scriptElement, vizElement);
         </script>
+
     </div>
+
 </body>
 </html>

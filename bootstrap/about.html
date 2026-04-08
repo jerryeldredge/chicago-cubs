@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<!-- about.html — Jeremy Eldredge Resume Page -->
+<!-- Scratch-made HTML/CSS page linked from the Bootstrap portfolio site. -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume — Jeremy Eldredge</title>
+    <style>
+
+        /* ── Base ───────────────────────────────────────────────── */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f4f4f4;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        /* ── Top nav bar (back link) ────────────────────────────── */
+        .topbar {
+            background-color: #212529;
+            padding: 12px 40px;
+        }
+
+        .topbar a {
+            color: #ffffff;
+            text-decoration: none;
+            font-family: 'Arial', sans-serif;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .topbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* ── Page header ────────────────────────────────────────── */
+        .resume-header {
+            background-color: #212529;
+            color: #ffffff;
+            text-align: center;
+            padding: 50px 20px 40px;
+        }
+
+        .resume-header h1 {
+            font-size: 2.6em;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .resume-header p {
+            font-size: 1em;
+            color: #cccccc;
+            margin: 4px 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .resume-header a {
+            color: #cccccc;
+            text-decoration: none;
+        }
+
+        .resume-header a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        /* ── Main content card ──────────────────────────────────── */
+        .container {
+            max-width: 820px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            padding: 40px 50px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ── Section titles ─────────────────────────────────────── */
+        .section-title {
+            font-family: 'Arial', sans-serif;
+            font-size: 0.8em;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #888888;
+            border-bottom: 1px solid #dddddd;
+            padding-bottom: 6px;
+            margin-bottom: 18px;
+            margin-top: 36px;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        /* ── Entry block (job, degree, etc.) ────────────────────── */
+        .entry {
+            margin-bottom: 24px;
+        }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+
+        .entry-title {
+            font-size: 1.05em;
+            font-weight: bold;
+            color: #111111;
+        }
+
+        .entry-date {
+            font-family: 'Arial', sans-serif;
+            font-size: 0.85em;
+            color: #888888;
+        }
+
+        .entry-subtitle {
+            font-family: 'Arial', sans-serif;
+            font-size: 0.9em;
+            color: #555555;
+            margin-top: 2px;
+            margin-bottom: 6px;
+        }
+
+        .entry ul {
+            padding-left: 20px;
+            margin-top: 6px;
+        }
+
+        .entry ul li {
+            font-family: 'Arial', sans-serif;
+            font-size: 0.9em;
+            color: #333333;
+            margin-bottom: 4px;
+        }
+
+        /* ── Skills grid ────────────────────────────────────────── */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background-color: #f0f0f0;
+            border: 1px solid #dddddd;
+            border-radius: 4px;
+            padding: 5px 14px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.88em;
+            color: #333333;
+        }
+
+        /* ── Footer ─────────────────────────────────────────────── */
+        .page-footer {
+            text-align: center;
+            padding: 24px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.8em;
+            color: #aaaaaa;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Back link to Bootstrap portfolio home -->
+    <div class="topbar">
+        <a href="index.html">← Back to Start</a>
+    </div>
+
+    <!-- Header with name and contact info -->
+    <div class="resume-header">
+        <h1>Jeremy Eldredge</h1>
+        <p>Clemmons, NC</p>
+        <p><a href="mailto:jeremyeldredge8@gmail.com">jeremyeldredge8@gmail.com</a></p>
+    </div>
+
+    <!-- Main resume content -->
+    <div class="container">
+
+        <!-- Education -->
+        <div class="section-title">Education</div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <span class="entry-title">Brigham Young University - Marriott School of Business</span>
+                <span class="entry-date">Expected April 2029</span>
+            </div>
+            <div class="entry-subtitle">Bachelor of Science — Accounting <br>Master of Accountancy</div>
+            <ul>
+                <li>Active member of the Accounting Society, Association for Information Systems, and Corporate Finance and Accounting Advisory Association</li>
+            </ul>
+        </div>
+
+        <!-- Skills -->
+        <div class="section-title">Skills, Interests, and Achievements</div>
+
+        <div class="skills-grid">
+            <span class="skill-tag">Professional working proficieny in Spanish</span>
+            <span class="skill-tag">Proficient in Microsoft Excel</span>
+            <span class="skill-tag">Eagle Scout, Boy Scouts of America</span>
+            <span class="skill-tag">Lifelong fan of Chicago sports (except the White Sox)</span>
+        </div>
+
+        <!-- Experience -->
+        <div class="section-title">Experience</div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <span class="entry-title">Office Specialist</span>
+                <span class="entry-date">January 2026 – Present</span>
+            </div>
+            <div class="entry-subtitle">BYU Economics - Provo, UT</div>
+            <ul>
+                <li>Provide administrative and operational support for the Economics Department, assisting with scheduling, communications, and organization</li>
+                <li>Manage records, documentation, and routine reporting with a high degree of accuracy and confidentiality</li>
+                <li>Support financial workflows, including tracking expenses and coordinating payments in accordance with university policies</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <span class="entry-title">Volunteer Representative</span>
+                <span class="entry-date">October 2023 - October 2025</span>
+            </div>
+            <div class="entry-subtitle">The Church of Jesus Christ of Latter-day Saints — Rosario, Argentina</div>
+            <ul>
+                <li>Presented and taught the principles of Jesus Christ to individuals and groups, providing personalized guidance on implementing these teachings to achieve personal growth and strengthen family bonds</li>
+                <li>Led volunteer teams, managed training, motivation, schedules, and set goals to achieve team objectives</li>
+                <li>Learned to overcome and adapt to logistical and operational challenges with limited time and resources</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <span class="entry-title">Financial Secretary</span>
+                <span class="entry-date">April 2024 - October 2024</span>
+            </div>
+            <div class="entry-subtitle">The Church of Jesus Christ of Latter-day Saints — Rosario, Argentina</div>
+            <ul>
+                <li>Managed 80+ housing units and finances for 170+ volunteers as Financial Secretary of the organization</li>
+                <li>Oversaw expense tracking for the organization, ensuring precision of all budgets and financial records</li>
+                <li>Kept track of and evaluated organization-wide key performance indicators to identify success and operational efficiency trends</li>
+                <li>Conducted targeted financial analysis of expenditures by category to identify spending trends and implement cost-saving measures</li>
+            </ul>
+        </div>
+
+        <!-- Projects -->
+        <div class="section-title">Projects</div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <span class="entry-title">Chicago Cubs Fan Website</span>
+                <span class="entry-date">2026</span>
+            </div>
+            <div class="entry-subtitle">Web Development Class Project</div>
+            <ul>
+                <li>Built a multi-page fan site using scratch HTML and CSS covering the Cubs roster, schedule, and history.</li>
+                <li>Integrated an embedded YouTube video and a live Tableau dashboard for MLB statistics.</li>
+                <li>Deployed via GitHub Pages.</li>
+            </ul>
+        </div>
+
+    </div><!-- end .container -->
+
+    <div class="page-footer">
+        &copy; 2026 Jeremy Eldredge
+    </div>
+
+</body>
+</html>
