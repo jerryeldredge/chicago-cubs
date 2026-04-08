@@ -1,221 +1,240 @@
 <!DOCTYPE html>
-<!-- quiz.html — Chicago Cubs Trivia Quiz -->
-<!-- Scratch-made interactive 10-question quiz. All answers are sourced
-     directly from the Chicago Cubs fan website (cubsindex, history,
-     roster, and schedule pages). -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cubs Trivia Quiz</title>
+    <title>Home Run Derby | Chicago Cubs</title>
     <style>
 
-        /* ── Base ───────────────────────────────────────────────── */
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            color: #222;
+            background-color: #0e3386;
+            color: #fff;
         }
 
-        /* ── Top bar ────────────────────────────────────────────── */
+        /* top bar */
         .topbar {
-            background-color: #0E3386;
+            background-color: #cc3433;
             padding: 12px 40px;
         }
         .topbar a {
-            color: #ffffff;
+            color: #fff;
             text-decoration: none;
             font-size: 14px;
-            letter-spacing: 0.5px;
+            margin-right: 20px;
         }
         .topbar a:hover { text-decoration: underline; }
 
-        /* ── Page header ────────────────────────────────────────── */
-        .quiz-header {
-            background-color: #0E3386;
-            color: #ffffff;
+        /* title */
+        .page-title {
             text-align: center;
-            padding: 40px 20px 30px;
-            border-bottom: 5px solid #CC3433;
+            padding: 24px 20px 10px;
         }
-        .quiz-header h1 {
+        .page-title h1 {
             font-size: 2.2em;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
         }
-        .quiz-header p {
-            font-size: 0.95em;
+        .page-title p {
             color: #c8d4f0;
+            margin-top: 6px;
+            font-size: 0.95em;
         }
 
-        /* ── Main card ──────────────────────────────────────────── */
-        .card {
-            max-width: 720px;
-            margin: 40px auto;
-            background: #ffffff;
-            border-radius: 6px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-            padding: 40px 48px;
-        }
-
-        /* ── Progress bar ───────────────────────────────────────── */
-        .progress-label {
-            font-size: 12px;
+        /* high score banner */
+        .hs-banner {
+            background-color: #cc3433;
+            text-align: center;
+            padding: 8px 20px;
             font-weight: bold;
+            font-size: 0.95em;
+            display: none;
+        }
+
+        /* screens */
+        .screen { display: none; }
+        .screen.active { display: block; }
+
+        /* player select */
+        .player-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+            max-width: 780px;
+            margin: 20px auto;
+            padding: 0 16px;
+        }
+        .player-card {
+            background-color: #fff;
+            color: #0e3386;
+            border-radius: 10px;
+            padding: 14px 16px;
+            width: 138px;
+            text-align: center;
+            cursor: pointer;
+            border: 4px solid transparent;
+        }
+        .player-card:hover { border-color: #cc3433; }
+        .player-card.selected {
+            border-color: #cc3433;
+            background-color: #fdf0f0;
+        }
+        .player-emoji { font-size: 2.6em; margin-bottom: 5px; }
+        .player-name { font-weight: bold; font-size: 0.82em; margin-bottom: 2px; }
+        .player-pos { font-size: 0.72em; color: #666; margin-bottom: 8px; }
+        .stat-row { text-align: left; margin: 3px 0; }
+        .stat-lbl { font-size: 0.68em; color: #555; }
+        .stat-track {
+            height: 7px; background-color: #ddd; border-radius: 4px;
+            overflow: hidden; margin-top: 2px;
+        }
+        .stat-power  { height: 100%; background-color: #cc3433; border-radius: 4px; }
+        .stat-contact { height: 100%; background-color: #0e3386; border-radius: 4px; }
+
+        .select-instructions {
+            text-align: center;
+            color: #c8d4f0;
+            font-size: 0.88em;
+            max-width: 600px;
+            margin: 0 auto 12px;
+            padding: 0 16px;
+        }
+
+        .play-btn {
+            display: block;
+            margin: 14px auto 24px;
+            background-color: #cc3433;
+            color: #fff;
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 12px 50px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            letter-spacing: 2px;
+        }
+        .play-btn:disabled { background-color: #666; cursor: default; }
+        .play-btn:hover:not(:disabled) { background-color: #a82828; }
+
+        /* game screen */
+        #game-canvas {
+            display: block;
+            margin: 8px auto 0;
+            border-radius: 8px;
+            border: 3px solid #fff;
+        }
+
+        .hud {
+            display: flex;
+            justify-content: space-around;
+            background-color: #fff;
+            color: #0e3386;
+            max-width: 600px;
+            margin: 10px auto;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: bold;
+            font-size: 1.05em;
+        }
+        .hud-item { text-align: center; }
+        .hud-label {
+            display: block;
+            font-size: 0.68em;
+            font-weight: normal;
+            color: #777;
             letter-spacing: 1px;
             text-transform: uppercase;
-            color: #888;
-            margin-bottom: 6px;
-        }
-        .progress-track {
-            width: 100%;
-            height: 6px;
-            background-color: #e8e8e8;
-            border-radius: 3px;
-            margin-bottom: 28px;
-        }
-        .progress-fill {
-            height: 6px;
-            background-color: #0E3386;
-            border-radius: 3px;
-            transition: width 0.3s ease;
         }
 
-        /* ── Question ───────────────────────────────────────────── */
-        .question-text {
-            font-size: 1.15em;
+        .hit-flash {
+            text-align: center;
+            font-size: 1.9em;
             font-weight: bold;
-            color: #111;
-            line-height: 1.5;
-            margin-bottom: 24px;
+            height: 44px;
+            margin: 2px auto;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
         }
 
-        /* ── Answer options ─────────────────────────────────────── */
-        .options { display: flex; flex-direction: column; gap: 10px; }
-
-        .option-btn {
-            text-align: left;
-            padding: 13px 18px;
-            border: 2px solid #dde3f2;
-            border-radius: 5px;
-            background-color: #f9faff;
-            color: #222;
-            font-size: 0.95em;
-            cursor: pointer;
-            transition: border-color 0.15s, background-color 0.15s;
-        }
-        .option-btn:hover:not(:disabled) {
-            border-color: #0E3386;
-            background-color: #eef2fb;
-        }
-        /* Correct answer highlight */
-        .option-btn.correct {
-            border-color: #2a7a2a;
-            background-color: #e6f4e6;
-            color: #1a4d1a;
+        #swing-btn {
+            display: block;
+            margin: 10px auto 6px;
+            background-color: #cc3433;
+            color: #fff;
+            font-size: 1.3em;
             font-weight: bold;
-        }
-        /* Wrong answer highlight */
-        .option-btn.wrong {
-            border-color: #CC3433;
-            background-color: #fdecea;
-            color: #7a1a1a;
-        }
-
-        /* ── Feedback message ───────────────────────────────────── */
-        .feedback {
-            margin-top: 18px;
-            padding: 12px 16px;
-            border-radius: 5px;
-            font-size: 0.92em;
-            line-height: 1.5;
-            display: none;
-        }
-        .feedback.correct { background-color: #e6f4e6; color: #1a4d1a; }
-        .feedback.wrong   { background-color: #fdecea; color: #7a1a1a; }
-
-        /* ── Next button ────────────────────────────────────────── */
-        .next-btn {
-            display: none;
-            margin-top: 22px;
-            padding: 12px 30px;
-            background-color: #0E3386;
-            color: #ffffff;
+            padding: 12px 56px;
             border: none;
-            border-radius: 5px;
-            font-size: 0.95em;
-            font-weight: bold;
+            border-radius: 6px;
             cursor: pointer;
-            letter-spacing: 0.5px;
-            transition: background-color 0.15s;
+            letter-spacing: 2px;
         }
-        .next-btn:hover { background-color: #CC3433; }
+        #swing-btn:disabled { background-color: #666; cursor: default; }
+        #swing-btn:hover:not(:disabled) { background-color: #a82828; }
 
-        /* ── Results screen ─────────────────────────────────────── */
-        #results { display: none; text-align: center; }
-        .score-circle {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            background-color: #0E3386;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-        }
-        .score-circle .score-num {
-            font-size: 2.4em;
-            font-weight: bold;
-            line-height: 1;
-        }
-        .score-circle .score-denom {
-            font-size: 1em;
+        .pitch-msg {
+            text-align: center;
+            font-size: 0.85em;
             color: #c8d4f0;
-        }
-        .result-title {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #0E3386;
             margin-bottom: 10px;
         }
-        .result-msg {
-            font-size: 0.95em;
-            color: #555;
-            margin-bottom: 28px;
-            line-height: 1.6;
+
+        /* results */
+        .results-wrap {
+            max-width: 480px;
+            margin: 20px auto;
+            background-color: #fff;
+            color: #0e3386;
+            border-radius: 10px;
+            padding: 28px 32px;
+            text-align: center;
         }
-        .retake-btn {
-            padding: 12px 32px;
-            background-color: #0E3386;
+        .results-wrap h2 { font-size: 1.7em; margin-bottom: 8px; }
+        .final-pts {
+            font-size: 3.2em;
+            font-weight: bold;
+            color: #cc3433;
+            line-height: 1;
+        }
+        .hs-note { font-size: 0.85em; color: #777; margin: 6px 0 16px; }
+        .breakdown {
+            display: flex;
+            justify-content: space-around;
+            margin: 14px 0 20px;
+            font-size: 0.9em;
+        }
+        .bd-item .bd-num {
+            font-size: 1.8em;
+            font-weight: bold;
+            display: block;
+        }
+        .action-btns { margin-top: 8px; }
+        .btn-blue {
+            background-color: #0e3386;
             color: #fff;
             border: none;
+            padding: 10px 26px;
             border-radius: 5px;
-            font-size: 0.95em;
-            font-weight: bold;
             cursor: pointer;
-            margin-right: 10px;
-            transition: background-color 0.15s;
-        }
-        .retake-btn:hover { background-color: #CC3433; }
-        .cubs-link {
-            display: inline-block;
-            padding: 12px 32px;
-            border: 2px solid #0E3386;
-            border-radius: 5px;
-            color: #0E3386;
-            text-decoration: none;
             font-size: 0.95em;
-            font-weight: bold;
-            transition: background-color 0.15s, color 0.15s;
+            margin: 5px;
         }
-        .cubs-link:hover { background-color: #0E3386; color: #fff; }
+        .btn-blue:hover { background-color: #0a2560; }
+        .btn-red2 {
+            background-color: #cc3433;
+            color: #fff;
+            border: none;
+            padding: 10px 26px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.95em;
+            margin: 5px;
+        }
+        .btn-red2:hover { background-color: #a82828; }
 
-        /* ── Footer ─────────────────────────────────────────────── */
-        .page-footer {
+        footer {
             text-align: center;
             padding: 20px;
             font-size: 0.8em;
@@ -226,236 +245,510 @@
 </head>
 <body>
 
-    <!-- Back to portfolio -->
+    <!-- nav bar -->
     <div class="topbar">
-        <a href="index.html">← Back to Start</a>
+        <a href="index.html">&#8592; Back to Start</a>
+        <a href="../cubsindex.html">Cubs Home</a>
+        <a href="../history.html">History</a>
+        <a href="../roster.html">Roster</a>
+        <a href="../schedule.html">Schedule</a>
     </div>
 
-    <!-- Page header -->
-    <div class="quiz-header">
-        <h1>Cubs Trivia Quiz</h1>
-        <p>10 questions based on the Chicago Cubs fan site. How well do you know your Cubs?</p>
-    </div>
+    <!-- high score banner -->
+    <div class="hs-banner" id="hs-banner"></div>
 
-    <!-- Quiz card -->
-    <div class="card">
-
-        <!-- Active quiz area -->
-        <div id="quiz-area">
-            <div class="progress-label" id="progress-label">Question 1 of 10</div>
-            <div class="progress-track">
-                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
-            </div>
-            <div class="question-text" id="question-text"></div>
-            <div class="options" id="options"></div>
-            <div class="feedback" id="feedback"></div>
-            <button class="next-btn" id="next-btn">Next Question →</button>
+    <!-- ========== PLAYER SELECT ========== -->
+    <div class="screen active" id="screen-select">
+        <div class="page-title">
+            <h1>&#9918; HOME RUN DERBY &#9918;</h1>
+            <p>Pick your Cubs batter and step up to the plate!</p>
         </div>
 
-        <!-- Results screen (hidden until quiz ends) -->
-        <div id="results">
-            <div class="score-circle">
-                <span class="score-num" id="score-num">0</span>
-                <span class="score-denom">out of 10</span>
-            </div>
-            <div class="result-title" id="result-title"></div>
-            <div class="result-msg" id="result-msg"></div>
-            <button class="retake-btn" onclick="startQuiz()">Retake Quiz</button>
-            <a class="cubs-link" href="../cubsindex.html" target="_blank">Visit the Cubs Site</a>
-        </div>
+        <div class="player-grid" id="player-grid"></div>
 
+        <p class="select-instructions">
+            <strong>Power</strong> = bigger HR bonus &nbsp;|&nbsp;
+            <strong>Contact</strong> = wider sweet spot<br>
+            You get <strong>10 pitches</strong> — time your swing to hit home runs!
+        </p>
+
+        <button class="play-btn" id="start-btn" onclick="startGame()" disabled>PLAY BALL!</button>
     </div>
 
-    <div class="page-footer">&copy; 2026 Jeremy Eldredge</div>
+    <!-- ========== GAME ========== -->
+    <div class="screen" id="screen-game">
+        <div class="page-title" style="padding: 12px 20px 6px;">
+            <h1 style="font-size:1.5em;">&#9918; HOME RUN DERBY</h1>
+        </div>
+
+        <div class="hud">
+            <span class="hud-item"><span class="hud-label">Batter</span><span id="hud-player">—</span></span>
+            <span class="hud-item"><span class="hud-label">Pitch</span><span id="hud-pitch">1/10</span></span>
+            <span class="hud-item"><span class="hud-label">Score</span><span id="hud-score">0</span></span>
+            <span class="hud-item"><span class="hud-label">HR</span><span id="hud-hr">0</span></span>
+        </div>
+
+        <div class="hit-flash" id="hit-flash">&nbsp;</div>
+
+        <canvas id="game-canvas" width="580" height="210"></canvas>
+
+        <p class="pitch-msg" id="pitch-msg">Get ready...</p>
+
+        <button id="swing-btn" onclick="doSwing()" disabled>&#127953; SWING!</button>
+    </div>
+
+    <!-- ========== RESULTS ========== -->
+    <div class="screen" id="screen-results">
+        <div class="page-title">
+            <h1>&#9918; GAME OVER &#9918;</h1>
+        </div>
+        <div class="results-wrap">
+            <h2 id="res-player"></h2>
+            <div class="final-pts" id="res-score">0</div>
+            <div class="hs-note" id="res-hs"></div>
+            <div class="breakdown">
+                <div class="bd-item"><span class="bd-num" id="res-hr">0</span>Home Runs &#128165;</div>
+                <div class="bd-item"><span class="bd-num" id="res-hits">0</span>Hits &#127919;</div>
+                <div class="bd-item"><span class="bd-num" id="res-fouls">0</span>Fouls</div>
+                <div class="bd-item"><span class="bd-num" id="res-miss">0</span>Misses</div>
+            </div>
+            <div class="action-btns">
+                <button class="btn-red2" onclick="playAgain()">Play Again</button>
+                <button class="btn-blue" onclick="goSelectPlayer()">Change Player</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>&copy; 2026 Jeremy Eldredge | Chicago Cubs Fan Site</footer>
 
     <script>
-        // ── Questions ─────────────────────────────────────────────
-        // All answers sourced from cubsindex.html, history.html,
-        // roster.html, and schedule.html on the Cubs fan website.
-        const questions = [
-            {
-                q: "What year did the Chicago Cubs most recently win the World Series?",
-                options: ["2003", "2007", "2016", "2020"],
-                correct: 2,
-                explanation: "The Cubs won the 2016 World Series in a thrilling 10-inning Game 7, ending a 108-year championship drought."
-            },
-            {
-                q: "How many years had the Cubs gone without a World Series title before their 2016 victory?",
-                options: ["71 years", "86 years", "100 years", "108 years"],
-                correct: 3,
-                explanation: "The Cubs had not won the World Series since 1908 — a drought of 108 years before the 2016 championship."
-            },
-            {
-                q: "What is the name of the ivy-covered ballpark where the Cubs play their home games?",
-                options: ["Busch Stadium", "Wrigley Field", "Guaranteed Rate Field", "US Cellular Field"],
-                correct: 1,
-                explanation: "Wrigley Field is the Cubs' home and one of the oldest, most iconic ballparks in the United States. The ivy was planted by Bill Veeck in 1937."
-            },
-            {
-                q: "Which Cub holds the franchise record with 545 career home runs?",
-                options: ["Ernie Banks", "Ron Santo", "Kris Bryant", "Sammy Sosa"],
-                correct: 3,
-                explanation: "Sammy Sosa hit 545 home runs as a Cub — the most in franchise history — and was a seven-time All-Star."
-            },
-            {
-                q: "Which player won both the 2015 NL Rookie of the Year and the 2016 NL MVP award?",
-                options: ["Anthony Rizzo", "Javier Báez", "Kris Bryant", "Ben Zobrist"],
-                correct: 2,
-                explanation: "Kris Bryant won the Rookie of the Year in 2015, then led the Cubs to the World Series in 2016 while winning the NL MVP with 39 home runs."
-            },
-            {
-                q: "What year was the song 'Go, Cubs, Go!' written by Steve Goodman?",
-                options: ["1977", "1982", "1984", "1988"],
-                correct: 2,
-                explanation: "'Go, Cubs, Go!' was written by Chicago folk singer Steve Goodman in 1984. It is played after every Cubs home win."
-            },
-            {
-                q: "What year did Wrigley Field host its first-ever night game?",
-                options: ["1948", "1965", "1976", "1988"],
-                correct: 3,
-                explanation: "The first night game at Wrigley Field was played in 1988, making it one of the last ballparks in the major leagues to add lights."
-            },
-            {
-                q: "Who is the Chicago Cubs' manager in the 2026 season?",
-                options: ["Joe Maddon", "David Ross", "Craig Counsell", "Lou Piniella"],
-                correct: 2,
-                explanation: "Craig Counsell has been the Cubs' manager since 2024, signing a historic contract to take over the club."
-            },
-            {
-                q: "Which Cubs outfielder led the team in home runs through the first 11 games of the 2026 season?",
-                options: ["Pete Crow-Armstrong", "Seiya Suzuki", "Michael Conforto", "Ian Happ"],
-                correct: 3,
-                explanation: "Ian Happ led all Cubs hitters with 4 home runs and 7 RBI through the first 11 games of the 2026 season."
-            },
-            {
-                q: "What is the name of the Chicago Cubs' official mascot?",
-                options: ["Cubbie", "Wrigley", "Clark", "Banks"],
-                correct: 2,
-                explanation: "The Cubs' official mascot is a bear named Clark, introduced in 2014 as part of the team's fan engagement efforts."
-            }
+
+        // ── Players ───────────────────────────────────────────────
+        var players = [
+            { name: "Ian Happ",             num: 8,  pos: "LF", power: 5, contact: 3, emoji: "&#128170;" },
+            { name: "Alex Bregman",          num: 3,  pos: "3B", power: 4, contact: 4, emoji: "&#127919;" },
+            { name: "Nico Hoerner",          num: 2,  pos: "2B", power: 2, contact: 5, emoji: "&#9889;" },
+            { name: "Pete Crow-Armstrong",   num: 4,  pos: "CF", power: 3, contact: 4, emoji: "&#129413;" },
+            { name: "Michael Busch",         num: 29, pos: "1B", power: 4, contact: 3, emoji: "&#128296;" }
         ];
 
         // ── State ─────────────────────────────────────────────────
-        let current = 0;
-        let score = 0;
-        let answered = false;
+        var chosenIdx = null;
+        var highScore = 0;
+        var highScorePlayer = "";
 
-        // ── DOM references ────────────────────────────────────────
-        const progressLabel = document.getElementById('progress-label');
-        const progressFill  = document.getElementById('progress-fill');
-        const questionText  = document.getElementById('question-text');
-        const optionsDiv    = document.getElementById('options');
-        const feedback      = document.getElementById('feedback');
-        const nextBtn       = document.getElementById('next-btn');
-        const quizArea      = document.getElementById('quiz-area');
-        const resultsDiv    = document.getElementById('results');
+        var pitchNum = 0;
+        var totalPitches = 10;
+        var gameScore = 0;
+        var countHR = 0;
+        var countHits = 0;
+        var countFouls = 0;
+        var countMiss = 0;
 
-        // ── Render current question ───────────────────────────────
-        function renderQuestion() {
-            const q = questions[current];
-            answered = false;
+        var ballX = 0;
+        var ballY = 0;
+        var ballSpeed = 0;
+        var pitchLive = false;
+        var alreadySwung = false;
+        var rafId = null;
 
-            // Update progress
-            progressLabel.textContent = `Question ${current + 1} of ${questions.length}`;
-            progressFill.style.width = `${(current / questions.length) * 100}%`;
+        // ── Canvas ────────────────────────────────────────────────
+        var canvas = document.getElementById("game-canvas");
+        var ctx = canvas.getContext("2d");
 
-            // Set question text
-            questionText.textContent = q.q;
-
-            // Build option buttons
-            optionsDiv.innerHTML = '';
-            q.options.forEach((opt, i) => {
-                const btn = document.createElement('button');
-                btn.className = 'option-btn';
-                btn.textContent = opt;
-                btn.addEventListener('click', () => selectAnswer(i));
-                optionsDiv.appendChild(btn);
-            });
-
-            // Reset feedback and next button
-            feedback.style.display = 'none';
-            feedback.className = 'feedback';
-            feedback.textContent = '';
-            nextBtn.style.display = 'none';
-            nextBtn.textContent = current < questions.length - 1 ? 'Next Question →' : 'See Results';
+        // ── Build player cards ────────────────────────────────────
+        function buildCards() {
+            var grid = document.getElementById("player-grid");
+            grid.innerHTML = "";
+            for (var i = 0; i < players.length; i++) {
+                var p = players[i];
+                var card = document.createElement("div");
+                card.className = "player-card";
+                card.id = "pcard-" + i;
+                card.setAttribute("data-idx", i);
+                card.onclick = (function(idx) {
+                    return function() { pickPlayer(idx); };
+                })(i);
+                card.innerHTML =
+                    '<div class="player-emoji">' + p.emoji + '</div>' +
+                    '<div class="player-name">' + p.name + '</div>' +
+                    '<div class="player-pos">#' + p.num + ' &bull; ' + p.pos + '</div>' +
+                    '<div class="stat-row">' +
+                        '<div class="stat-lbl">Power</div>' +
+                        '<div class="stat-track"><div class="stat-power" style="width:' + (p.power/5*100) + '%"></div></div>' +
+                    '</div>' +
+                    '<div class="stat-row">' +
+                        '<div class="stat-lbl">Contact</div>' +
+                        '<div class="stat-track"><div class="stat-contact" style="width:' + (p.contact/5*100) + '%"></div></div>' +
+                    '</div>';
+                grid.appendChild(card);
+            }
         }
 
-        // ── Handle answer selection ───────────────────────────────
-        function selectAnswer(index) {
-            if (answered) return;
-            answered = true;
+        function pickPlayer(idx) {
+            chosenIdx = idx;
+            var cards = document.querySelectorAll(".player-card");
+            for (var i = 0; i < cards.length; i++) {
+                cards[i].classList.remove("selected");
+            }
+            document.getElementById("pcard-" + idx).classList.add("selected");
+            document.getElementById("start-btn").disabled = false;
+        }
 
-            const q = questions[current];
-            const buttons = optionsDiv.querySelectorAll('.option-btn');
+        function refreshHSBanner() {
+            var banner = document.getElementById("hs-banner");
+            if (highScore > 0) {
+                banner.style.display = "block";
+                banner.textContent = "&#127942; High Score: " + highScore + " pts  (" + highScorePlayer + ")";
+            }
+        }
 
-            // Disable all buttons
-            buttons.forEach(btn => btn.disabled = true);
+        // ── Game flow ─────────────────────────────────────────────
+        function startGame() {
+            if (chosenIdx === null) return;
 
-            if (index === q.correct) {
-                // Correct
-                score++;
-                buttons[index].classList.add('correct');
-                feedback.textContent = '✓ Correct! ' + q.explanation;
-                feedback.className = 'feedback correct';
-            } else {
-                // Wrong
-                buttons[index].classList.add('wrong');
-                buttons[q.correct].classList.add('correct');
-                feedback.textContent = '✗ Not quite. ' + q.explanation;
-                feedback.className = 'feedback wrong';
+            pitchNum = 0;
+            gameScore = 0;
+            countHR = 0;
+            countHits = 0;
+            countFouls = 0;
+            countMiss = 0;
+
+            showScreen("screen-game");
+
+            document.getElementById("hud-player").textContent = players[chosenIdx].name;
+            refreshHUD();
+            document.getElementById("hit-flash").innerHTML = "&nbsp;";
+
+            setTimeout(function() { launchPitch(); }, 700);
+        }
+
+        function refreshHUD() {
+            document.getElementById("hud-pitch").textContent = (pitchNum + 1) + "/10";
+            document.getElementById("hud-score").textContent = gameScore;
+            document.getElementById("hud-hr").textContent = countHR;
+        }
+
+        function launchPitch() {
+            if (pitchNum >= totalPitches) {
+                endGame();
+                return;
             }
 
-            feedback.style.display = 'block';
-            nextBtn.style.display = 'inline-block';
+            alreadySwung = false;
+            pitchLive = false;
+
+            refreshHUD();
+            document.getElementById("pitch-msg").textContent =
+                "Pitch " + (pitchNum + 1) + " of " + totalPitches + " — here it comes!";
+
+            // speed increases every 3 pitches
+            var spd = 2.6 + (Math.floor(pitchNum / 3) * 0.45);
+            ballSpeed = spd;
+
+            // ball starts off-screen left, at strike zone height
+            ballX = -20;
+            ballY = canvas.height * 0.5;
+
+            var swBtn = document.getElementById("swing-btn");
+            swBtn.disabled = true;
+
+            // short wind-up, then release ball
+            setTimeout(function() {
+                pitchLive = true;
+                swBtn.disabled = false;
+                rafId = requestAnimationFrame(animatePitch);
+            }, 550);
         }
 
-        // ── Advance to next question or show results ───────────────
-        nextBtn.addEventListener('click', () => {
-            current++;
-            if (current < questions.length) {
-                renderQuestion();
-            } else {
-                showResults();
+        function animatePitch() {
+            if (!pitchLive) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawField();
+
+            ballX += ballSpeed;
+            drawBall(ballX, ballY);
+
+            // if ball crosses whole canvas without a swing
+            if (ballX > canvas.width + 25) {
+                pitchLive = false;
+                if (!alreadySwung) {
+                    resolveSwing("miss");
+                }
+                return;
             }
-        });
 
-        // ── Results screen ────────────────────────────────────────
-        function showResults() {
-            quizArea.style.display = 'none';
-            resultsDiv.style.display = 'block';
+            rafId = requestAnimationFrame(animatePitch);
+        }
 
-            document.getElementById('score-num').textContent = score;
+        function doSwing() {
+            if (!pitchLive) return;
+            if (alreadySwung) return;
+            alreadySwung = true;
+            pitchLive = false;
 
-            let title, msg;
-            if (score === 10) {
-                title = 'Perfect Score! 🏆';
-                msg = 'You know the Cubs inside and out. A true fan of the North Side!';
-            } else if (score >= 8) {
-                title = 'Great Job!';
-                msg = `You scored ${score} out of 10 — you clearly know your Cubs history well.`;
-            } else if (score >= 5) {
-                title = 'Not Bad!';
-                msg = `You scored ${score} out of 10. Brush up on your Cubs knowledge and try again!`;
+            var p = players[chosenIdx];
+
+            // plate is at 78% across canvas
+            var plateX = canvas.width * 0.78;
+            // contact stat widens the sweet spot
+            var sweetHalf = 24 + p.contact * 8;
+            var diff = Math.abs(ballX - plateX);
+
+            var result;
+            if (diff <= sweetHalf * 0.38) {
+                // dead center — HR based on power
+                if (p.power >= 4) {
+                    result = "hr";
+                } else if (p.power >= 3) {
+                    result = (Math.random() < 0.6) ? "hr" : "hit";
+                } else {
+                    result = (Math.random() < 0.3) ? "hr" : "hit";
+                }
+            } else if (diff <= sweetHalf) {
+                result = "hit";
+            } else if (diff <= sweetHalf * 1.55) {
+                result = "foul";
             } else {
-                title = 'Keep Learning!';
-                msg = `You scored ${score} out of 10. Visit the Cubs site to sharpen your trivia skills.`;
+                result = "miss";
             }
 
-            document.getElementById('result-title').textContent = title;
-            document.getElementById('result-msg').textContent = msg;
+            resolveSwing(result);
         }
 
-        // ── Start / restart quiz ──────────────────────────────────
-        function startQuiz() {
-            current = 0;
-            score = 0;
-            quizArea.style.display = 'block';
-            resultsDiv.style.display = 'none';
-            renderQuestion();
+        function resolveSwing(result) {
+            var p = players[chosenIdx];
+            var pts = 0;
+            var msg = "";
+
+            if (result === "hr") {
+                pts = 100 + p.power * 20;
+                countHR++;
+                msg = "&#128165; HOME RUN! +" + pts;
+            } else if (result === "hit") {
+                pts = 40 + p.power * 5;
+                countHits++;
+                msg = "&#127919; HIT! +" + pts;
+            } else if (result === "foul") {
+                pts = 5;
+                countFouls++;
+                msg = "&#9889; Foul ball +5";
+            } else {
+                pts = 0;
+                countMiss++;
+                msg = "&#128543; Miss!";
+            }
+
+            gameScore += pts;
+            refreshHUD();
+
+            var flash = document.getElementById("hit-flash");
+            flash.innerHTML = msg;
+            if (result === "hr")   flash.style.color = "#ffd700";
+            else if (result === "hit")  flash.style.color = "#90ee90";
+            else if (result === "foul") flash.style.color = "#ffa07a";
+            else flash.style.color = "#ff6b6b";
+
+            // draw one last frame with ball flight
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawField();
+            if (result !== "miss") drawFlight(result);
+
+            pitchNum++;
+
+            setTimeout(function() {
+                document.getElementById("hit-flash").innerHTML = "&nbsp;";
+                launchPitch();
+            }, 1200);
         }
 
-        // Kick off on page load
-        startQuiz();
+        // ── Drawing helpers ───────────────────────────────────────
+        function drawField() {
+            var w = canvas.width;
+            var h = canvas.height;
+
+            // grass
+            ctx.fillStyle = "#2a7a2a";
+            ctx.fillRect(0, 0, w, h);
+
+            // dirt infield
+            ctx.fillStyle = "#a0714f";
+            ctx.beginPath();
+            ctx.moveTo(w * 0.78, h * 0.95);
+            ctx.lineTo(w * 0.45, h * 0.22);
+            ctx.lineTo(w * 0.99, h * 0.22);
+            ctx.closePath();
+            ctx.fill();
+
+            // home plate
+            ctx.fillStyle = "#c8956a";
+            ctx.fillRect(w * 0.74, h * 0.72, 26, 16);
+
+            // foul lines
+            ctx.strokeStyle = "#fff";
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 4]);
+            ctx.beginPath();
+            ctx.moveTo(w * 0.78, h * 0.85);
+            ctx.lineTo(0, h * 0.38);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(w * 0.78, h * 0.85);
+            ctx.lineTo(w, h * 0.38);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // strike zone box
+            ctx.strokeStyle = "rgba(255,255,255,0.45)";
+            ctx.lineWidth = 2;
+            ctx.strokeRect(w * 0.78 - 20, h * 0.35, 40, h * 0.28);
+
+            // batter
+            drawBatter(w * 0.72, h * 0.8);
+        }
+
+        function drawBatter(bx, by) {
+            ctx.fillStyle = "#0e3386";
+            // torso
+            ctx.fillRect(bx - 7, by - 36, 14, 22);
+            // head
+            ctx.beginPath();
+            ctx.arc(bx, by - 43, 8, 0, Math.PI * 2);
+            ctx.fill();
+            // bat
+            ctx.strokeStyle = "#c8956a";
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(bx + 5, by - 34);
+            ctx.lineTo(bx + 28, by - 57);
+            ctx.stroke();
+            // legs
+            ctx.strokeStyle = "#0e3386";
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.moveTo(bx - 3, by - 14); ctx.lineTo(bx - 7, by + 1);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(bx + 3, by - 14); ctx.lineTo(bx + 7, by + 1);
+            ctx.stroke();
+        }
+
+        function drawBall(bx, by) {
+            // shadow
+            ctx.beginPath();
+            ctx.ellipse(bx, by + 13, 9, 4, 0, 0, Math.PI * 2);
+            ctx.fillStyle = "rgba(0,0,0,0.22)";
+            ctx.fill();
+            // ball
+            ctx.beginPath();
+            ctx.arc(bx, by, 10, 0, Math.PI * 2);
+            ctx.fillStyle = "#fff";
+            ctx.fill();
+            ctx.strokeStyle = "#ddd";
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            // seams
+            ctx.strokeStyle = "#cc3433";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(bx - 3, by, 5, -0.5, 0.5);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(bx + 3, by, 5, Math.PI - 0.5, Math.PI + 0.5);
+            ctx.stroke();
+        }
+
+        function drawFlight(result) {
+            var w = canvas.width;
+            var h = canvas.height;
+            if (result === "hr") {
+                ctx.strokeStyle = "#ffd700";
+                ctx.lineWidth = 3;
+                ctx.setLineDash([5, 5]);
+                ctx.beginPath();
+                ctx.moveTo(w * 0.78, h * 0.5);
+                ctx.quadraticCurveTo(w * 0.55, h * 0.04, w * 0.3, h * 0.1);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = "#ffd700";
+                ctx.font = "bold 26px Arial";
+                ctx.fillText("HR!", w * 0.25, h * 0.18);
+            } else if (result === "hit") {
+                ctx.strokeStyle = "#90ee90";
+                ctx.lineWidth = 2;
+                ctx.setLineDash([4, 4]);
+                ctx.beginPath();
+                ctx.moveTo(w * 0.78, h * 0.5);
+                ctx.quadraticCurveTo(w * 0.55, h * 0.22, w * 0.38, h * 0.35);
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+        }
+
+        // ── End game ──────────────────────────────────────────────
+        function endGame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawField();
+
+            var p = players[chosenIdx];
+            var isNew = (gameScore > highScore && gameScore > 0);
+            if (isNew) {
+                highScore = gameScore;
+                highScorePlayer = p.name;
+            }
+
+            document.getElementById("res-player").innerHTML = p.emoji + " " + p.name;
+            document.getElementById("res-score").textContent = gameScore + " pts";
+
+            if (isNew) {
+                document.getElementById("res-hs").textContent = "&#127942; New High Score!";
+            } else if (highScore > 0) {
+                document.getElementById("res-hs").textContent =
+                    "Best: " + highScore + " pts (" + highScorePlayer + ")";
+            } else {
+                document.getElementById("res-hs").textContent = "";
+            }
+
+            document.getElementById("res-hr").textContent = countHR;
+            document.getElementById("res-hits").textContent = countHits;
+            document.getElementById("res-fouls").textContent = countFouls;
+            document.getElementById("res-miss").textContent = countMiss;
+
+            showScreen("screen-results");
+        }
+
+        function playAgain() {
+            pitchNum = 0;
+            gameScore = 0;
+            countHR = 0;
+            countHits = 0;
+            countFouls = 0;
+            countMiss = 0;
+            showScreen("screen-game");
+            document.getElementById("hud-player").textContent = players[chosenIdx].name;
+            refreshHUD();
+            document.getElementById("hit-flash").innerHTML = "&nbsp;";
+            setTimeout(function() { launchPitch(); }, 600);
+        }
+
+        function goSelectPlayer() {
+            showScreen("screen-select");
+            refreshHSBanner();
+        }
+
+        function showScreen(id) {
+            var screens = document.querySelectorAll(".screen");
+            for (var i = 0; i < screens.length; i++) {
+                screens[i].classList.remove("active");
+            }
+            document.getElementById(id).classList.add("active");
+        }
+
+        // ── Init ──────────────────────────────────────────────────
+        buildCards();
+        drawField();
+
     </script>
 
 </body>
